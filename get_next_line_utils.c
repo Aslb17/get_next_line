@@ -6,7 +6,7 @@
 /*   By: ade-cham <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 11:45:53 by ade-cham          #+#    #+#             */
-/*   Updated: 2020/10/07 16:39:49 by ade-cham         ###   ########.fr       */
+/*   Updated: 2020/10/08 15:25:04 by ade-cham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,27 @@ char	*ft_strdup(const char *s1)
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	unsigned int	len;
+	unsigned int	len_s1;
+	unsigned int	len_s2;
 	unsigned int	i;
 	unsigned int	j;
 	char			*s3;
 
-	len = ft_strlen(s1) + ft_strlen(s2);
 	i = 0;
 	j = 0;
-	if (!s1 || !s2)
+	if (s1 == NULL)
+		len_s1 = 0;
+	else
+		len_s1 = ft_strlen((char *)s1);
+		len_s2 = ft_strlen((char *)s2);
+	if (!(s3 = (char *)malloc(sizeof(char) * (len_s1 + len_s2 + 1))))
 		return (NULL);
-	if (!(s3 = (char *)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	while (s1[j] != '\0')
-		s3[i++] = s1[j++];
-	j = 0;
-	while (s2[j] != '\0')
+	while (i < len_s1)
+	{
+		s3[i] = s1[i];
+		i++;
+	}
+	while (j < len_s2)
 		s3[i++] = s2[j++];
 	s3[i] = '\0';
 	free((char *)s1);

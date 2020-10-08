@@ -6,7 +6,7 @@
 /*   By: ade-cham <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 15:38:02 by ade-cham          #+#    #+#             */
-/*   Updated: 2020/10/08 11:54:36 by ade-cham         ###   ########.fr       */
+/*   Updated: 2020/10/08 15:35:43 by ade-cham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,26 @@ int	get_next_line(int fd, char **line)
 
 	save = NULL;
 	i = 0;
-//	if (fd > 0 || !line || BUFFER_SIZE < 0)
-//		return (-1);
+	if (fd > 0 || !line || BUFFER_SIZE < 0)
+		return (-1);
 	while ((reader = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
-		buf[reader] = '\0';
-		save = ft_strjoin(save, buf);
-		i = ft_find_n(save);
-		if (i >= 0)
+		if (!save)
+			save = ft_strdup(buf);
+		else
 		{
-			save = get_line(save, line, i);
-			return (1);
-		}
-	save = get_last_line(save, line, i, reader);
-	return (0);
+			buf[reader] = '\0';
+			save = ft_strjoin(save, buf);
+			i = ft_find_n(save);
+			if (i >= 0)
+			{
+				save = get_line(save, line, i);
+				return (1);
+			}
+			save = get_last_line(save, line, i, reader);
+			return (0);
+		}	
+		return (0);
 	}
-	return (-1);
+	return (0);
 }
