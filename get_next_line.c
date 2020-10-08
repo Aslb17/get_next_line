@@ -6,7 +6,7 @@
 /*   By: ade-cham <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 15:38:02 by ade-cham          #+#    #+#             */
-/*   Updated: 2020/10/08 16:20:52 by ade-cham         ###   ########.fr       */
+/*   Updated: 2020/10/08 16:44:17 by ade-cham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ char	*get_line(char *save, char	**line, int i)
 	return (save);
 }
 
-char	*get_last_line(char *save, char** line, int i, int reader)
+char	*get_last_line(char *save, char** line, int i)
 {
 	char	*temp;
 
-	if (reader == 0 && i != -1)
+	if (i != -1)
 	{
 		save[i] = '\0';
 		*line = ft_strdup(save);
@@ -57,7 +57,7 @@ char	*get_last_line(char *save, char** line, int i, int reader)
 		free(temp);
 		return (save);
 	}
-	else if (reader == 0)
+	else 
 	{
 		*line = ft_strdup(save);
 		free(save);
@@ -76,8 +76,8 @@ int	get_next_line(int fd, char **line)
 
 	save = NULL;
 	i = 0;
-//	if (fd > 0 || !line || BUFFER_SIZE < 0)
-//		return (-1);
+	if (fd < 0 || !line || BUFFER_SIZE < 0)
+		return (-1);
 	while ((reader = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
 		if (!save)
@@ -94,7 +94,7 @@ int	get_next_line(int fd, char **line)
 			}
 		}
 	}
-	save = get_last_line(save, line, i, reader);
+	save = get_last_line(save, line, i);
 	if (reader == 0 && i != -1)
 		return (1);
 	else if (reader == 0)
