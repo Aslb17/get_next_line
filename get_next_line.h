@@ -6,7 +6,7 @@
 /*   By: ade-cham <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 09:47:08 by ade-cham          #+#    #+#             */
-/*   Updated: 2020/10/08 15:19:14 by ade-cham         ###   ########.fr       */
+/*   Updated: 2020/10/09 11:49:52 by ade-cham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE	32
+#  define BUFFER_SIZE	32
 # endif
 
 size_t	ft_strlen(const char *s);

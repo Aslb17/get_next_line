@@ -6,7 +6,7 @@
 /*   By: ade-cham <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 11:45:53 by ade-cham          #+#    #+#             */
-/*   Updated: 2020/10/08 16:20:55 by ade-cham         ###   ########.fr       */
+/*   Updated: 2020/10/09 11:23:52 by ade-cham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	ft_strlen(const char *s)
 	i = 0;
 	if (!s)
 		return (0);
-	while (s[i] != '\0')
+	while (s[i])
 		i++;
 	return (i);
 }
@@ -34,14 +34,13 @@ char	*ft_strdup(const char *s1)
 	i = ft_strlen((char *)s1);
 	if (!(dest = (char*)malloc(sizeof(char) * (i + 1))))
 		return (NULL);
-	i = 0;
-	while (s1[i] != '\0')
+	i = 0;;
+	while (s1[i])
 	{
 		dest[i] = s1[i];
 		i++;
 	}
 	dest[i] = '\0';
-	free((char *)s1);
 	return (dest);
 }
 

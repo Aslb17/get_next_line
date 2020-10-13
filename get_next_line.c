@@ -6,7 +6,7 @@
 /*   By: ade-cham <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 15:38:02 by ade-cham          #+#    #+#             */
-/*   Updated: 2020/10/08 16:44:17 by ade-cham         ###   ########.fr       */
+/*   Updated: 2020/10/09 15:28:48 by ade-cham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,11 @@ char	*get_line(char *save, char	**line, int i)
 	return (save);
 }
 
-char	*get_last_line(char *save, char** line, int i)
-{
-	char	*temp;
-
-	if (i != -1)
-	{
-		save[i] = '\0';
-		*line = ft_strdup(save);
-		temp = ft_strdup(save + i + 1);
-		free(save);
-		save = temp;
-		free(temp);
-		return (save);
-	}
-	else 
-	{
-		*line = ft_strdup(save);
-		free(save);
-		save = NULL;
-		return (save);
-	}
+char	*get_last_line(char *save, char** line)
+{	
+	*line = ft_strdup(save);
+	free(save);
+	save = NULL;
 	return (save);
 }
 
@@ -74,18 +58,18 @@ int	get_next_line(int fd, char **line)
 	int 		i;
 	int 		reader;
 
-	save = NULL;
+    save = NULL;
 	i = 0;
-	if (fd < 0 || !line || BUFFER_SIZE < 0)
+    if (fd < 0 || !line || BUFFER_SIZE < 0)
 		return (-1);
 	while ((reader = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
+        buf[reader] = '\0';;
 		if (!save)
 			save = ft_strdup(buf);
 		else
 		{
-			buf[reader] = '\0';
-			save = ft_strjoin(save, buf);
+            save = ft_strjoin(save, buf);
 			i = ft_find_n(save);
 			if (i >= 0)
 			{
@@ -94,10 +78,8 @@ int	get_next_line(int fd, char **line)
 			}
 		}
 	}
-	save = get_last_line(save, line, i);
-	if (reader == 0 && i != -1)
-		return (1);
-	else if (reader == 0)
+	save = get_last_line(save, line);
+	if (reader == 0)
 		return (0);
 	return (-1);
 }
